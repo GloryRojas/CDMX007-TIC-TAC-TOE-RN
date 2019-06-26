@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Alert, Button} from 'react-native';
 import { MaterialCommunityIcons as Icon } from 'react-native-vector-icons';
 
 export default class App extends React.Component {
@@ -26,9 +26,38 @@ export default class App extends React.Component {
         [0,0,0],
         [0,0,0],
         [0,0,0],
-      ]
-    })
+      ],
+      currentPlayer: 1,
+    });
   }
+
+  getWinner = () => {
+    const NUM_TILES = 3;
+    let arr = this.state.gameState;
+    let sum;
+
+    for (let i=0; i< NUM_TILES; i++){
+      sum = arr[i][0] + arr[i][1] + arr[i][2];
+      if (sum== 3) {return 1;}
+      else if (sum == -3) { return -1;}
+    }
+
+    for (let i=0; i< NUM_TILES; i++){
+      sum = arr[0][i] + arr[1][i] + arr[2][i];
+      if (sum== 3) {return 1;}
+      else if (sum == -3) { return -1;}
+    }
+
+    sum = arr[0][0] + arr[1][1] + arr[2][2];
+      if (sum== 3) {return 1;}
+      else if (sum == -3) { return -1;}
+
+    sum = arr[2][0] + arr[1][1] + arr[0][2];
+      if (sum == 3) {return 1;}
+      else if (sum == -3) { return -1;}
+
+    return 0;
+  };
 
   onTilePress = (row, col) => {
     const value = this.state.gameState[row][col];
@@ -42,6 +71,19 @@ export default class App extends React.Component {
 
     var nextPlayer = (currentPlayer == 1) ? -1 : 1;
     this.setState({currentPlayer: nextPlayer});
+  
+    const winner = this.getWinner();
+    if (winner == 1) {
+      Alert.alert('Player 1 is the winner');
+      this.initializeGame();
+    } else if (winner == -1){
+      Alert.alert('Player 2 is the winner');
+      this.initializeGame();
+    }
+  }
+
+  onNewGamePress = () => {
+    this.initializeGame();
   }
 
   renderIcon = (row, col) => {
@@ -94,6 +136,8 @@ export default class App extends React.Component {
           </TouchableOpacity>
         </View>
       
+        <Button title="New Game" onPress={this.onNewGamePress} />
+
       </View>
     );
   }
