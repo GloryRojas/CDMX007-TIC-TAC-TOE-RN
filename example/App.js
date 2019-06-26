@@ -1,10 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hola mundo!!</Text>
+
+      <View style={{flexDirection: "row"}}>
+        <View style={styles.tile}/>
+        <View style={styles.tile}/>
+        <View style={styles.tile}/>
+      </View>
+
+      <View style={{flexDirection: "row"}}>
+        <View style={styles.tile}/>
+        <View style={styles.tile}/>
+        <View style={styles.tile}/>
+      </View>
+
+      <View style={{flexDirection: "row"}}>
+        <View style={styles.tile}/>
+        <View style={styles.tile}/>
+        <View style={styles.tile}/>
+      </View>
+     
     </View>
   );
 }
@@ -16,4 +34,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  tile: {
+    borderWidth: 1,
+    width: 100,
+    height: 100,
+  }
 });
