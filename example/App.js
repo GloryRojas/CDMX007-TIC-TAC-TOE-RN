@@ -7,11 +7,28 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      gameState: [],
+      gameState: [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0],
+      ],
       currentPlayer: 1,
     }
   }
 
+  componentDidMount() {
+    this.initializeGame();
+  }
+
+  initializeGame = () => {
+    this.setState({
+      gameState: [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0],
+      ]
+    })
+  }
 
   render() { 
     return (
